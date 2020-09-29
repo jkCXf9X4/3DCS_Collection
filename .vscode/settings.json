@@ -1,0 +1,6 @@
+{
+    "python.pythonPath": "C:\\Python36\\python.exe",
+    "python.linting.flake8Args": [
+        "--ignore=E501",
+    ],
+}
