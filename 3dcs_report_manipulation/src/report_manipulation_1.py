@@ -182,7 +182,7 @@ def find_simulation_page(path):
         return sim_results_original_path, sim_results_bak_path
 
 
-def adjust_content(content):
+def adjust_content(content, remove_val=True):
     table_rows_unformated = re.findall("<TR>.*</TR>", content)
 
     # Replace the old string in the original context
@@ -190,8 +190,10 @@ def adjust_content(content):
         row = ""
         data = create_data_dict(i)
 
-        if is_sub(i) or is_val(i):
+        if is_sub(i):
             row = ""  # Remove row if VAL or SUB
+        elif remove_val and is_val(i):
+            row = ""
         elif is_sub_header(i):
             row = format_sub_header(data)
         else:
@@ -219,7 +221,7 @@ print(f"Simulation page: {sim_results_path}")
 # Get file content
 file_content = get_file_content(sim_results_path)
 
-new_content = adjust_content(file_content)
+new_content = adjust_content(file_content, remove_val=True)
 
 save_content(output_sim_results_path, new_content)
 
